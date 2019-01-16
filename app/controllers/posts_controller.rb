@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate, :except => [:index, :show]
 
   # GET /posts
   # GET /posts.json
@@ -23,8 +24,10 @@ class PostsController < ApplicationController
 
   # POST /posts
   # POST /posts.json
-  def create
-    @post = Post.new(post_params)
+  def create #sumit하면 의례적으로 create가 호출된다.
+    @post = Post.new(post_params)  #모델을 만드는건가?...
+    puts "AA"
+    puts :show
 
     respond_to do |format|
       if @post.save
@@ -64,11 +67,16 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
+      p "SET POST.."
+      p params.inspect
+      p params[:id]
       @post = Post.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
+      p "POST_PARAMS..."
+      p @post
       params.require(:post).permit(:name, :title, :content)
     end
 end

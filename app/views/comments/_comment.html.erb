@@ -1,0 +1,15 @@
+<p>
+  <b>Commenter:</b>
+  <%= comment.commenter %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= comment.body %>
+</p>
+
+<p><!--#href="/posts/1/comments/2"-->
+  <%= link_to 'Destroy Comment', [comment.post, comment],
+              :confirm => 'Are you sure?',
+              :method => :delete %>
+</p>
